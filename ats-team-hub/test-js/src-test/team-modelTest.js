@@ -1,6 +1,34 @@
-TestCase("Team Model", {	
+TestCase("Team Model", {
+	setUp: function() {
+		this.old_ajaxurl = TeamHub.ajaxurl;
+		TeamHub.ajaxurl = "test.php";
+		sinon.stub(jQuery, "ajax");		
+	},
+		
+	tearDown: function () {
+		TeamHub.ajaxurl = this.old_ajaxurl;
+		jQuery.ajax.restore();
+    },
+	
 	"test Team Model is defined": function() {
 		assertFunction("Team Model is function", TeamHub.Models.Team);
+	},
+	
+	"test Team Model calls AJAX on destroy()": function () {
+		var team = new TeamHub.Models.Team({"name" : "aa"});
+		// we'll set id to make Backbone think that model is persistent (saved on server)
+		team.set("id", "18");
+		team.destroy();
+		assertTrue("AJAX called", jQuery.ajax.calledOnce);
+		assertTrue("AJAX params match", jQuery.ajax.calledWithMatch({ 
+			url: TeamHub.ajaxurl,
+			type: "post",
+			data: {
+				'action' : 'del-teamhub-team',
+				'id' : '18',
+				'name' : 'aa'
+			}
+		}));		
 	}
 });
 
@@ -16,13 +44,13 @@ TestCase("Team Collection Model", {
 
 TestCase("Team Collection Model serialization", {	
 	setUp: function() {
-		this.old_ajaxurl = window.ajaxurl;
-		window.ajaxurl = "test.php";
+		this.old_ajaxurl = TeamHub.ajaxurl;
+		TeamHub.ajaxurl = "test.php";
 		sinon.stub(jQuery, "ajax");		
 	},
 		
 	tearDown: function () {
-		window.ajaxurl = this.old_ajaxurl;
+		TeamHub.ajaxurl = this.old_ajaxurl;
 		jQuery.ajax.restore();
     },
 	
@@ -31,9 +59,9 @@ TestCase("Team Collection Model serialization", {
 		teams.fetch();
 		
 		assertTrue("AJAX params match", jQuery.ajax.calledWithMatch({ 
-			url: window.ajaxurl,
+			url: TeamHub.ajaxurl,
 			type: "post",
-			data: {'action' : 'get-teams'}
+			data: {'action' : 'get-teamhub-teams'}
 		}));	
 	},
 	
@@ -51,10 +79,10 @@ TestCase("Team Collection Model serialization", {
 		teams.create({ 'name' : name });
 		
 		assertTrue("AJAX params match", jQuery.ajax.calledWithMatch({ 
-			url : window.ajaxurl,
+			url : TeamHub.ajaxurl,
 			type : "post",
 			data : {
-				'action' : 'create-team',
+				'action' : 'create-teamhub-team',
 				'name' : name
 			}
 		}));	
@@ -73,8 +101,5 @@ TestCase("Team Collection Model serialization", {
 		
 		jQuery.ajax.args[0][0].success(content);
 		assertEquals("data corect", logo, teams.at(0).get('logo'));
-	},
-
-	
-
+	}
 });

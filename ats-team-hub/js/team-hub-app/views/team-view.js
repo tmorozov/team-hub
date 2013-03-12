@@ -9,14 +9,26 @@ TeamHub.Views.Team = Backbone.Marionette.ItemView.extend({
 
 	crossClick : function (event) {
 		'use strict';
-		if(this.options.vent) {
+		if (this.options.vent) {
 			this.options.vent.trigger('team:remove');
 		}
 		this.model.destroy();
 	}
 });
 
-TeamHub.Views.Teams = Backbone.Marionette.CollectionView.extend({
+TeamHub.Views.Teams = Backbone.Marionette.CompositeView.extend({
 	itemView : TeamHub.Views.Team,
-	tagName : 'ul'
+	itemViewContainer: "ul",
+	template: "#team-hub-teams-select-template",
+	events : {
+		"click button.done" : "doneClick"
+	},
+	
+	doneClick : function (event) {
+		'use strict';
+		if (this.options.vent) {
+			this.options.vent.trigger('articles:show');
+		}
+	}
+
 });

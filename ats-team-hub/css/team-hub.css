@@ -1,0 +1,135 @@
+.right-col div.team-hub.white-side-box .widgettitle {
+	width: 100px;
+	left: 96px;
+}
+
+div.team-hub img {
+	margin: 0;
+	padding: 0;
+}
+
+div.team-hub h2{
+	font-size: 150%;
+	font-weight: bold;
+}
+
+div.team-hub a {
+	text-decoration: none;
+	color: #000
+}
+
+div.team-hub ul {
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+	border-top: solid 1px #aaa;
+}
+
+div.team-hub li {
+	padding: 10px 0;
+	border-bottom: solid 1px #aaa;
+	clear: both;
+	height: 60px;
+	overflow: hidden;
+}
+
+div.team-hub > a {
+	color: #DB2026;
+	font-size: 120%;
+	font-weight: bold;
+}
+
+div.team-hub > a:visited  {
+	color: #DB2026;
+}
+
+div.team-hub .ats-team-hub-content {
+	margin: 10px 0;
+	height: 406px;
+}
+
+div.team-hub .thumb {
+	width: 80px;
+	height: 60px;
+	float: left;
+	margin: 0 10px 0 0;
+	padding: 0;
+}
+
+div.team-hub a .logo {
+	width: 20px;
+	height: 15px;
+}
+
+div.team-hub a .name {
+	font-weight: bold;
+	font-size: 100%;
+	color: #777;
+}
+
+div.team-hub a .title {
+	font-weight: bold;
+	padding-top: 2px;
+	height: 2.5em;
+	overflow: hidden;
+}
+
+/* team selection */
+div.team-hub .ats-team-hub-content > div {
+	border-bottom: solid 1px #aaa;
+	border-top: solid 1px #aaa;
+	height: 100%;
+}
+
+div.team-hub button.done {
+	border: none;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	font-size: 120%;
+	line-height: 1.625;
+}
+
+div.team-hub input[type=text] {
+	margin: 10px 0;
+	width: 200px;
+}
+
+div.team-hub .logo {
+	width: 60px;
+	height: 40px;
+	background: none;
+	float: left;
+	margin-right: 10px;
+}
+
+div.team-hub button.cross {
+	width: 24px;
+	height: 24px;
+	border: none;
+	margin: 8px;
+	background: transparent url("cross.png") 0 0 no-repeat;
+}
+
+div.team-hub button.cross:hover {
+	background: transparent url("cross.png") -24px 0 no-repeat;
+	cursor: pointer;
+}
+
+div.team-hub .ats-team-hub-content > div .name {
+	font-weight: bold;
+	color: #000;
+	font-size: 120%;
+	line-height: 40px;
+	width: 160px;
+	float: left;
+	overflow: hidden;
+}
+
+div.team-hub .ats-team-hub-content > div li {
+	padding: 8px 0;
+	border-bottom: solid 1px #aaa;
+	clear: both;
+	height: 40px;
+	overflow: hidden;
+}

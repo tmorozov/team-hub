@@ -9,6 +9,10 @@ TestCase("Team View", {
 <button class="cross"></button>
 </script>
 
+<script id="team-hub-teams-select-template" type="template">
+
+</script>
+
 </div>
 */
 	
@@ -72,6 +76,27 @@ TestCase("Team View", {
 
 TestCase("Teams View", {
 	setUp : function() {
+/*:DOC +=
+<div class="templates">
+
+<script id="team-hub-team-template" type="template">
+<img class="logo" src="<%= logo %>" />
+<div class="name"><%= name %></div>
+<button class="cross"></button>
+</script>
+
+<script id="team-hub-teams-select-template" type="template">
+<input type="text" />
+<button class="done"></button>
+<ul></ul>
+</script>
+
+</div>
+*/
+		this.vent = {
+			trigger: sinon.spy()
+		};
+	
 		this.teams = new TeamHub.Models.TeamCollection([ {
 				'logo' : 'img1.jpg',
 				'name' : 'Buldogs'
@@ -82,7 +107,8 @@ TestCase("Teams View", {
 		]);
 		
 		this.teamsView = new TeamHub.Views.Teams({
-			collection : this.teams
+			collection : this.teams,
+			vent : this.vent
 		});
 		
 		this.teamsView.render();
@@ -94,11 +120,17 @@ TestCase("Teams View", {
 	"test Teams View holds Team View": function() {
 		assertEquals("itemView is Team", TeamHub.Views.Team, TeamHub.Views.Teams.prototype.itemView);
 	},
-	"test Teams View is ul": function() {
-		assertEquals("teamsView renders ul", "ul", this.teamsView.tagName);
+	// "test Teams View is ul": function() {
+		// assertEquals("teamsView renders ul", "ul", this.teamsView.tagName);
+	// },
+	"test Teams View shoud have input": function() {
+		assertEquals("input present", 1, this.teamsView.$('input[type=text]').length);
+	},
+	"test Teams View shoud have Done button": function() {
+		assertEquals("done button", 1, this.teamsView.$('button.done').length );
 	},
 	"test Teams View renders list": function() {
-		assertEquals("teamsView renders list", 2, this.teamsView.$('li').length);
+		assertEquals("teamsView renders list", 2, this.teamsView.$('ul>li').length);
 	},
 	"test Teams View updates on new model": function() {
 		this.teams.add({
@@ -114,6 +146,12 @@ TestCase("Teams View", {
 	"test Teams View updates on cross clicked in TeamView": function() {
 		this.teamsView.$('button.cross').eq(0).click();
 		assertEquals("teamsView renders list", 1, this.teamsView.$('li').length);
-	}
+	},
+	
+	"test Teams View triggers 'articles:show' on Done clicked": function() {
+		this.teamsView.$('button.done').click();
+		assertTrue("Done triggers event", this.vent.trigger.calledWith('articles:show') );
+	},
+
 	
 });

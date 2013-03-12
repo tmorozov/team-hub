@@ -1,11 +1,4 @@
-<div class="templates">
-
-<script id="team-hub-team-template" type="template">
-<img class="logo" src="<%= logo %>" />
-<div class="name"><%= name %></div>
-<button class="cross"></button>
-</script>
-
+<!-- templates -->
 <script id="team-hub-article-template" type="template">
 <a href="<%= url %>">
 	<img class="thumb" src="<%= thumb %>" />
@@ -15,5 +8,14 @@
 </a>
 </script>
 
+<script id="team-hub-teams-select-template" type="template">
+	<input id="team-input" type="text" />
+	<button class="done"><?php _e("Done"); ?></button>
+	<ul></ul>
+</script>		
 
-</div>
+<script id="team-hub-team-template" type="template">
+	<img class="logo" src="<%= logo %>" />
+	<div class="name"><%= name %></div>
+	<button class="cross"></button>
+</script>

@@ -10,6 +10,10 @@ TestCase("TeamHub namespace", {
 
 	"test TeamHub.Models defined": function() {
 		assertObject("TeamHub.Models is object", TeamHub.Models);
-	}
+	},
+
+	"test TeamHub.ajaxurl defined": function() {
+		assertString(TeamHub.ajaxurl);
+	}	
 });
 

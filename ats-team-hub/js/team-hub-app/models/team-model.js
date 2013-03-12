@@ -1,31 +1,34 @@
 /*global Backbone, TeamHub, jQuery, window */
 
 TeamHub.Models.Team = Backbone.Model.extend({
-	sync: function (method) {
+	sync: function (method, model, options) {
 		'use strict';
 		var that = this;
 		if ('create' === method) {
-			return jQuery.post(window.ajaxurl, {
-				'action' : 'create-team',
+			return jQuery.post(TeamHub.ajaxurl, {
+				'action' : 'create-teamhub-team',
 				'name' : this.get('name')
-			}, function (responce) {
-				that.set(responce);
-			}, 'json');
+			}, options.success, 'json');
+		}
+		if ('delete' === method) {
+			return jQuery.post(TeamHub.ajaxurl, {
+				'action' : 'del-teamhub-team',
+				'name' : this.get('name'),
+				'id' : this.get('id')
+			}, options.success, 'json');
 		}
 	}
 });
 
 TeamHub.Models.TeamCollection = Backbone.Collection.extend({
 	model : TeamHub.Models.Team,
-	sync : function (method) {
+	sync : function (method, model, options) {
 		'use strict';
 		var that = this;
 		if ('read' === method) {
-			return jQuery.post(window.ajaxurl, {
-				'action' : 'get-teams'
-			}, function (responce) {
-				that.reset(responce);
-			}, 'json');
+			return jQuery.post(TeamHub.ajaxurl, {
+				'action' : 'get-teamhub-teams'
+			}, options.success, 'json');
 		}
 	}
 });
